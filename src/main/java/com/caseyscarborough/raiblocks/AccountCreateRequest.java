@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
-public class AccountCreateRequest extends BaseRequest {
+class AccountCreateRequest extends BaseRequest {
 
     private String wallet;
     private boolean work;

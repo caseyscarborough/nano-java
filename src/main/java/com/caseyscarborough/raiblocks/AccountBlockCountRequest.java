@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
-public class AccountBlockCountRequest extends AccountRequest {
+class AccountBlockCountRequest extends AccountRequest {
     public AccountBlockCountRequest(String account) {
         this.action = "account_block_count";
         this.account = account;

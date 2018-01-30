@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.response;
+package com.caseyscarborough.raiblocks;
 
-public class AccountInformationResponse extends BaseResponse {
+public class AccountInformation extends BaseResponse {
 
     private String frontier;
     private String openBlock;

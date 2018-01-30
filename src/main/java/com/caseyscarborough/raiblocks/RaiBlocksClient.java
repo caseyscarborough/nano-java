@@ -1,17 +1,5 @@
 package com.caseyscarborough.raiblocks;
 
-import com.caseyscarborough.raiblocks.exception.RaiBlocksException;
-import com.caseyscarborough.raiblocks.request.AccountBalanceRequest;
-import com.caseyscarborough.raiblocks.request.AccountBlockCountRequest;
-import com.caseyscarborough.raiblocks.request.AccountCreateRequest;
-import com.caseyscarborough.raiblocks.request.AccountInformationRequest;
-import com.caseyscarborough.raiblocks.request.AccountPublicKeyRequest;
-import com.caseyscarborough.raiblocks.response.AccountBalanceResponse;
-import com.caseyscarborough.raiblocks.response.AccountBlockCountResponse;
-import com.caseyscarborough.raiblocks.response.AccountCreateResponse;
-import com.caseyscarborough.raiblocks.response.AccountInformationResponse;
-import com.caseyscarborough.raiblocks.response.AccountPublicKeyResponse;
-import com.caseyscarborough.raiblocks.response.BaseResponse;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,14 +27,29 @@ public class RaiBlocksClient {
         this.host = host;
     }
 
+    public static void main(String[] args) {
+        RaiBlocksClient client = new RaiBlocksClient();
+        String account = "xrb_3te9uqhgshefm1s41ooi9gebkrdkdxwqygizn11a7pxohephmb79y9fmaaa1";
+        String wallet = "02028E84A43D7840A4DE32DF7EE0189819062269FE76A43A4FC560ACA35264AD";
+        String publicKey = "E987DDDEECBD8D98322056B03B989961725F797F3A1FA00082DBB57B2CF9A4A7";
+//        client.getAccountBalance(account);
+//        client.getAccountBlockCount(account);
+//        client.getAccountInformation(account);
+//        client.getAccountInformation(account, true, true, true);
+//        AccountCreateResponse acr = client.createAccount(wallet);
+//        System.out.println(acr.getAccount());
+//        AccountPublicKeyResponse response = client.getAccountPublicKey(account);
+//        System.out.println(response.getKey());
+    }
+
     /**
      * Returns how many RAW is owned and how many have not yet been received for an account.
      *
      * @param account the address of the account
      */
-    public AccountBalanceResponse getAccountBalance(String account) {
+    public AccountBalance getAccountBalance(String account) {
         AccountBalanceRequest request = new AccountBalanceRequest(account);
-        return response(request, AccountBalanceResponse.class);
+        return response(request, AccountBalance.class);
     }
 
     /**
@@ -54,9 +57,9 @@ public class RaiBlocksClient {
      *
      * @param account the address of the account
      */
-    public AccountBlockCountResponse getAccountBlockCount(String account) {
+    public AccountBlockCount getAccountBlockCount(String account) {
         AccountBlockCountRequest request = new AccountBlockCountRequest(account);
-        return response(request, AccountBlockCountResponse.class);
+        return response(request, AccountBlockCount.class);
     }
 
     /**
@@ -66,7 +69,7 @@ public class RaiBlocksClient {
      * @param account the address of the account
      * @see RaiBlocksClient#getAccountInformation(String, boolean, boolean, boolean)
      */
-    public AccountInformationResponse getAccountInformation(String account) {
+    public AccountInformation getAccountInformation(String account) {
         return getAccountInformation(account, false, false, false);
     }
 
@@ -83,12 +86,12 @@ public class RaiBlocksClient {
      * @param pending        whether or not to return the pending balance of the account
      * @see RaiBlocksClient#getAccountInformation(String)
      */
-    public AccountInformationResponse getAccountInformation(String account,
-                                                            boolean representative,
-                                                            boolean weight,
-                                                            boolean pending) {
+    public AccountInformation getAccountInformation(String account,
+                                                    boolean representative,
+                                                    boolean weight,
+                                                    boolean pending) {
         AccountInformationRequest request = new AccountInformationRequest(account, representative, weight, pending);
-        return response(request, AccountInformationResponse.class);
+        return response(request, AccountInformation.class);
     }
 
     /**
@@ -97,7 +100,7 @@ public class RaiBlocksClient {
      * @param wallet the specified wallet.
      * @return the address of the new account.
      */
-    public AccountCreateResponse createAccount(String wallet) {
+    public AccountCreate createAccount(String wallet) {
         return createAccount(wallet, true);
     }
 
@@ -111,9 +114,9 @@ public class RaiBlocksClient {
      * @param work whether or not generate work.
      * @return the address of the new account.
      */
-    public AccountCreateResponse createAccount(String wallet, boolean work) {
+    public AccountCreate createAccount(String wallet, boolean work) {
         AccountCreateRequest request = new AccountCreateRequest(wallet, work);
-        return response(request, AccountCreateResponse.class);
+        return response(request, AccountCreate.class);
     }
 
     /**
@@ -122,9 +125,9 @@ public class RaiBlocksClient {
      * @param account the account to retrieve the public key for.
      * @return the account's public key.
      */
-    public AccountPublicKeyResponse getAccountPublicKey(String account) {
+    public AccountPublicKey getAccountPublicKey(String account) {
         AccountPublicKeyRequest request = new AccountPublicKeyRequest(account);
-        return response(request, AccountPublicKeyResponse.class);
+        return response(request, AccountPublicKey.class);
     }
 
     private <T extends BaseResponse> T response(Object o, Class<T> clazz) {

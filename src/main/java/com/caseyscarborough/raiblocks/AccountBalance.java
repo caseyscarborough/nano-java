@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.response;
+package com.caseyscarborough.raiblocks;
 
-public class AccountBalanceResponse extends BaseResponse {
+public class AccountBalance extends BaseResponse {
 
     private String balance;
     private String pending;

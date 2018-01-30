@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
-public class AccountInformationRequest extends AccountRequest {
+class AccountInformationRequest extends AccountRequest {
 
     private boolean representative;
     private boolean weight;

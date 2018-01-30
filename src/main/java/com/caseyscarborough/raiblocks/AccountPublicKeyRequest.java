@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
-public class AccountPublicKeyRequest extends AccountRequest {
+class AccountPublicKeyRequest extends AccountRequest {
     public AccountPublicKeyRequest(String account) {
         this.action = "account_key";
         this.account = account;

@@ -1,4 +1,4 @@
-package com.caseyscarborough.raiblocks.exception;
+package com.caseyscarborough.raiblocks;
 
 public class RaiBlocksException extends RuntimeException {
     public RaiBlocksException(String message) {

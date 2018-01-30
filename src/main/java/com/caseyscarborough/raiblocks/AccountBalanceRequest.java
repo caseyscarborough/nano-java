@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
-public class AccountBalanceRequest extends AccountRequest {
+class AccountBalanceRequest extends AccountRequest {
     public AccountBalanceRequest(String account) {
         this.account = account;
         this.action = "account_balance";

@@ -1,6 +1,6 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
-public abstract class BaseRequest {
+abstract class BaseRequest {
 
     protected String action;
 

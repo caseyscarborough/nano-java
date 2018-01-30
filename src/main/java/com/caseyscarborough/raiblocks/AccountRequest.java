@@ -1,4 +1,4 @@
-package com.caseyscarborough.raiblocks.request;
+package com.caseyscarborough.raiblocks;
 
 class AccountRequest extends BaseRequest {
 
