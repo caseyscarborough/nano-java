@@ -1,7 +1,5 @@
 package com.caseyscarborough.raiblocks;
 
-import com.caseyscarborough.raiblocks.BaseResponse;
-
 public class AccountBlockCount extends BaseResponse {
 
     private String blockCount;
