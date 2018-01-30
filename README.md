@@ -21,13 +21,13 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [x] Account balance
   - [x] Account block count
   - [x] Account create
-  - [ ] Account get
-  - [ ] Account history
-  - [ ] Account information
-  - [ ] Account list
-  - [ ] Account move
+  - [x] Account get
+  - [x] Account history
+  - [x] Account information
+  - [x] Account list
+  - [x] Account move
   - [x] Account public key
-  - [ ] Account remove
+  - [x] Account remove
   - [ ] Account representative set
   - [ ] Account representative
   - [ ] Account weight

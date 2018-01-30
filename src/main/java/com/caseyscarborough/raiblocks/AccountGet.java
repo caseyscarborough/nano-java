@@ -2,7 +2,7 @@ package com.caseyscarborough.raiblocks;
 
 import com.caseyscarborough.raiblocks.BaseResponse;
 
-public class AccountCreate extends BaseResponse {
+public class AccountGet extends BaseResponse {
 
     private String account;
 

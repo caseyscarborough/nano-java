@@ -1,5 +1,7 @@
 package com.caseyscarborough.raiblocks;
 
+import com.caseyscarborough.raiblocks.BaseResponse;
+
 public class AccountInformation extends BaseResponse {
 
     private String frontier;

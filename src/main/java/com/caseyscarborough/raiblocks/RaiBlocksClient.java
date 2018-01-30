@@ -5,11 +5,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class RaiBlocksClient {
 
@@ -27,29 +27,17 @@ public class RaiBlocksClient {
         this.host = host;
     }
 
-    public static void main(String[] args) {
-        RaiBlocksClient client = new RaiBlocksClient();
-        String account = "xrb_3te9uqhgshefm1s41ooi9gebkrdkdxwqygizn11a7pxohephmb79y9fmaaa1";
-        String wallet = "02028E84A43D7840A4DE32DF7EE0189819062269FE76A43A4FC560ACA35264AD";
-        String publicKey = "E987DDDEECBD8D98322056B03B989961725F797F3A1FA00082DBB57B2CF9A4A7";
-//        client.getAccountBalance(account);
-//        client.getAccountBlockCount(account);
-//        client.getAccountInformation(account);
-//        client.getAccountInformation(account, true, true, true);
-//        AccountCreateResponse acr = client.createAccount(wallet);
-//        System.out.println(acr.getAccount());
-//        AccountPublicKeyResponse response = client.getAccountPublicKey(account);
-//        System.out.println(response.getKey());
-    }
-
     /**
      * Returns how many RAW is owned and how many have not yet been received for an account.
      *
      * @param account the address of the account
      */
     public AccountBalance getAccountBalance(String account) {
-        AccountBalanceRequest request = new AccountBalanceRequest(account);
-        return response(request, AccountBalance.class);
+        Request request = Request.action("account_balance")
+            .param("account", account)
+            .build();
+
+        return response(request.getMap(), AccountBalance.class);
     }
 
     /**
@@ -58,8 +46,11 @@ public class RaiBlocksClient {
      * @param account the address of the account
      */
     public AccountBlockCount getAccountBlockCount(String account) {
-        AccountBlockCountRequest request = new AccountBlockCountRequest(account);
-        return response(request, AccountBlockCount.class);
+        Request request = Request.action("account_block_count")
+            .param("account", account)
+            .build();
+
+        return response(request.getMap(), AccountBlockCount.class);
     }
 
     /**
@@ -90,8 +81,13 @@ public class RaiBlocksClient {
                                                     boolean representative,
                                                     boolean weight,
                                                     boolean pending) {
-        AccountInformationRequest request = new AccountInformationRequest(account, representative, weight, pending);
-        return response(request, AccountInformation.class);
+        Request request = Request.action("account_info")
+            .param("account", account)
+            .param("representative", representative)
+            .param("weight", weight)
+            .param("pending", pending)
+            .build();
+        return response(request.getMap(), AccountInformation.class);
     }
 
     /**
@@ -106,17 +102,83 @@ public class RaiBlocksClient {
 
     /**
      * Creates a new account and inserts the next deterministic key in wallet.
-     *
+     * <p>
      * This overloaded version takes can disable the generating the work after
      * the account is created.
      *
      * @param wallet the specified wallet.
-     * @param work whether or not generate work.
+     * @param work   whether or not generate work.
      * @return the address of the new account.
      */
     public AccountCreate createAccount(String wallet, boolean work) {
-        AccountCreateRequest request = new AccountCreateRequest(wallet, work);
-        return response(request, AccountCreate.class);
+        Request request = Request.action("account_create")
+            .param("wallet", wallet)
+            .param("work", work)
+            .build();
+
+        return response(request.getMap(), AccountCreate.class);
+    }
+
+    /**
+     * Get account number for the public key.
+     *
+     * @param publicKey the public key for an account.
+     * @return the address of the associated account.
+     */
+    public AccountGet getAccount(String publicKey) {
+        Request request = Request.action("account_get")
+            .param("key", publicKey)
+            .build();
+
+        return response(request.getMap(), AccountGet.class);
+    }
+
+    /**
+     * Reports send/receive information for an account.
+     *
+     * @param account the account address.
+     * @param count   the number of transactions to return.
+     * @return the history for the account.
+     */
+    public AccountHistory getAccountHistory(String account, Integer count) {
+        Request request = Request.action("account_history")
+            .param("account", account)
+            .param("count", count)
+            .build();
+
+        return response(request.getMap(), AccountHistory.class);
+    }
+
+    /**
+     * Lists all the accounts inside the wallet.
+     *
+     * @param wallet the wallet identifier.
+     * @return the list of accounts.
+     */
+    public AccountList getAccountList(String wallet) {
+        Request request = Request.action("account_list")
+            .param("wallet", wallet)
+            .build();
+
+        return response(request.getMap(), AccountList.class);
+    }
+
+    /**
+     * Moves accounts from source to wallet, enable_control required on node.
+     *
+     * @param wallet   the wallet to move to.
+     * @param source   the source.
+     * @param accounts the accounts to move.
+     * @return the number of accounts moved.
+     */
+    public AccountMove moveAccounts(String wallet, String source, String... accounts) {
+        Request request = Request.action("account_move")
+            .param("wallet", wallet)
+            .param("source", source)
+            .param("accounts", Arrays.asList(accounts))
+            .build();
+
+        return response(request.getMap(), AccountMove.class);
     }
 
     /**
@@ -126,14 +188,33 @@ public class RaiBlocksClient {
      * @return the account's public key.
      */
     public AccountPublicKey getAccountPublicKey(String account) {
-        AccountPublicKeyRequest request = new AccountPublicKeyRequest(account);
-        return response(request, AccountPublicKey.class);
+        Request request = Request.action("account_key")
+            .param("account", account)
+            .build();
+
+        return response(request.getMap(), AccountPublicKey.class);
+    }
+
+    /**
+     * Remove account from wallet.
+     *
+     * @param wallet  the wallet to remove the account from.
+     * @param account the account to remove.
+     * @return the number of accounts removed (1 for successful, 0 for unsuccessful).
+     */
+    public AccountRemove removeAccount(String wallet, String account) {
+        Request request = Request.action("account_remove")
+            .param("account", account)
+            .param("wallet", wallet)
+            .build();
+
+        return response(request.getMap(), AccountRemove.class);
     }
 
     private <T extends BaseResponse> T response(Object o, Class<T> clazz) {
         try {
             String json = gson.toJson(o);
-            Request request = new Request.Builder()
+            okhttp3.Request request = new okhttp3.Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), json))
                 .url(host)
                 .build();
