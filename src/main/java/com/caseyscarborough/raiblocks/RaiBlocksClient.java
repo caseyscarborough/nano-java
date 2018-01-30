@@ -55,7 +55,7 @@ public class RaiBlocksClient {
 
     /**
      * Returns frontier, open block, change representative block, balance, last
-     * modified timestamp from local database& block count for account.
+     * modified timestamp from local database & block count for account.
      *
      * @param account the address of the account
      * @see RaiBlocksClient#getAccountInformation(String, boolean, boolean, boolean)
