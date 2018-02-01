@@ -1,4 +1,4 @@
-package com.caseyscarborough.nano;
+package org.nano.client;
 
 abstract class BaseResponse {
 

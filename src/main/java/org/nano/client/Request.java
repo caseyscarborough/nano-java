@@ -1,4 +1,4 @@
-package com.caseyscarborough.nano;
+package org.nano.client;
 
 import java.util.HashMap;
 import java.util.Map;

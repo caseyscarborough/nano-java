@@ -1,4 +1,4 @@
-package com.caseyscarborough.nano;
+package org.nano.client;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
