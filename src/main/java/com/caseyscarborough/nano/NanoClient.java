@@ -1,4 +1,4 @@
-package com.caseyscarborough.raiblocks;
+package com.caseyscarborough.nano;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -11,7 +11,7 @@ import okhttp3.Response;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class RaiBlocksClient {
+public class NanoClient {
 
     private final OkHttpClient client = new OkHttpClient();
     private final String host;
@@ -19,11 +19,11 @@ public class RaiBlocksClient {
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .create();
 
-    public RaiBlocksClient() {
+    public NanoClient() {
         this("http://localhost:7076");
     }
 
-    public RaiBlocksClient(String host) {
+    public NanoClient(String host) {
         this.host = host;
     }
 
@@ -58,7 +58,7 @@ public class RaiBlocksClient {
      * modified timestamp from local database & block count for account.
      *
      * @param account the address of the account
-     * @see RaiBlocksClient#getAccountInformation(String, boolean, boolean, boolean)
+     * @see NanoClient#getAccountInformation(String, boolean, boolean, boolean)
      */
     public AccountInformation getAccountInformation(String account) {
         return getAccountInformation(account, false, false, false);
@@ -75,7 +75,7 @@ public class RaiBlocksClient {
      * @param representative whether or not to return the representative for the account
      * @param weight         whether or not to return the voting weight of the account
      * @param pending        whether or not to return the pending balance of the account
-     * @see RaiBlocksClient#getAccountInformation(String)
+     * @see NanoClient#getAccountInformation(String)
      */
     public AccountInformation getAccountInformation(String account,
                                                     boolean representative,
@@ -223,11 +223,11 @@ public class RaiBlocksClient {
             String body = response.body().string();
             T t = gson.fromJson(body, clazz);
             if (!t.isSuccess()) {
-                throw new RaiBlocksException(t.getError());
+                throw new NanoException(t.getError());
             }
             return t;
         } catch (IOException e) {
-            throw new RaiBlocksException("Unable to get account balance", e);
+            throw new NanoException("Unable to get account balance", e);
         }
     }
 }

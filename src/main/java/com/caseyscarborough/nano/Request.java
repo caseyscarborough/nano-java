@@ -1,4 +1,4 @@
-package com.caseyscarborough.raiblocks;
+package com.caseyscarborough.nano;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-group 'com.caseyscarborough.raiblocks'
+group 'com.caseyscarborough.nano'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'

@@ -1,15 +1,15 @@
-# raiblocks-java
+# nano-java
 
-Java API for the RaiBlocks RPC protocol. Currently under active development.
+Java API for the [Nano](http://nano.org/en) (previously RaiBlocks) RPC protocol. Currently under active development.
 
 ## Usage
 
 ```java
 // defaults to http://localhost:7076
-RaiBlocksClient client = new RaiBlocksClient();
+NanoClient client = new NanoClient();
 
 // or specify the host
-RaiBlocksClient client = new RaiBlocksClient("http://123.45.67.8:7076");
+NanoClient client = new NanoClient("http://123.45.67.8:7076");
 
 // Check account balance
 AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck76ogmitsa8mnijtpxm9fkcm736xtoncuohr3");

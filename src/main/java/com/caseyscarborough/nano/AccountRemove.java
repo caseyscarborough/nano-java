@@ -1,4 +1,4 @@
-package com.caseyscarborough.raiblocks;
+package com.caseyscarborough.nano;
 
 public class AccountRemove extends BaseResponse {
 
