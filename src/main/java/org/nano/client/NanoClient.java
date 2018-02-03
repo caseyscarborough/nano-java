@@ -35,8 +35,8 @@ public class NanoClient {
      */
     public Balance getAccountBalance(String account) {
         Request request = Request.action("account_balance")
-                .param("account", account)
-                .build();
+            .param("account", account)
+            .build();
 
         Balance balance = request(request, Balance.class);
         balance.setAccount(account);
@@ -50,8 +50,8 @@ public class NanoClient {
      */
     public AccountBlockCount getAccountBlockCount(String account) {
         Request request = Request.action("account_block_count")
-                .param("account", account)
-                .build();
+            .param("account", account)
+            .build();
 
         return request(request, AccountBlockCount.class);
     }
@@ -85,11 +85,11 @@ public class NanoClient {
                                                     boolean weight,
                                                     boolean pending) {
         Request request = Request.action("account_info")
-                .param("account", account)
-                .param("representative", representative)
-                .param("weight", weight)
-                .param("pending", pending)
-                .build();
+            .param("account", account)
+            .param("representative", representative)
+            .param("weight", weight)
+            .param("pending", pending)
+            .build();
         return request(request, AccountInformation.class);
     }
 
@@ -119,9 +119,9 @@ public class NanoClient {
      */
     public AccountCreate createAccount(String wallet, boolean work) {
         Request request = Request.action("account_create")
-                .param("wallet", wallet)
-                .param("work", work)
-                .build();
+            .param("wallet", wallet)
+            .param("work", work)
+            .build();
 
         return request(request, AccountCreate.class);
     }
@@ -134,8 +134,8 @@ public class NanoClient {
      */
     public AccountGet getAccount(String publicKey) {
         Request request = Request.action("account_get")
-                .param("key", publicKey)
-                .build();
+            .param("key", publicKey)
+            .build();
 
         return request(request, AccountGet.class);
     }
@@ -149,9 +149,9 @@ public class NanoClient {
      */
     public AccountHistory getAccountHistory(String account, Integer count) {
         Request request = Request.action("account_history")
-                .param("account", account)
-                .param("count", count)
-                .build();
+            .param("account", account)
+            .param("count", count)
+            .build();
 
         return request(request, AccountHistory.class);
     }
@@ -164,8 +164,8 @@ public class NanoClient {
      */
     public AccountList getAccountList(String wallet) {
         Request request = Request.action("account_list")
-                .param("wallet", wallet)
-                .build();
+            .param("wallet", wallet)
+            .build();
 
         return request(request, AccountList.class);
     }
@@ -182,10 +182,10 @@ public class NanoClient {
      */
     public AccountMove moveAccounts(String from, String to, List<String> accounts) {
         Request request = Request.action("account_move")
-                .param("source", from)
-                .param("wallet", to)
-                .param("accounts", accounts)
-                .build();
+            .param("source", from)
+            .param("wallet", to)
+            .param("accounts", accounts)
+            .build();
 
         return request(request, AccountMove.class);
     }
@@ -198,8 +198,8 @@ public class NanoClient {
      */
     public AccountPublicKey getAccountPublicKey(String account) {
         Request request = Request.action("account_key")
-                .param("account", account)
-                .build();
+            .param("account", account)
+            .build();
 
         return request(request, AccountPublicKey.class);
     }
@@ -215,9 +215,9 @@ public class NanoClient {
      */
     public AccountRemove removeAccount(String wallet, String account) {
         Request request = Request.action("account_remove")
-                .param("account", account)
-                .param("wallet", wallet)
-                .build();
+            .param("account", account)
+            .param("wallet", wallet)
+            .build();
 
         return request(request, AccountRemove.class);
     }
@@ -230,8 +230,8 @@ public class NanoClient {
      */
     public AccountRepresentative getAccountRepresentative(String account) {
         Request request = Request.action("account_representative")
-                .param("account", account)
-                .build();
+            .param("account", account)
+            .build();
 
         return request(request, AccountRepresentative.class);
     }
@@ -249,10 +249,10 @@ public class NanoClient {
      */
     public AccountRepresentativeSet setAccountRepresentative(String wallet, String account, String representative) {
         Request request = Request.action("account_representative_set")
-                .param("wallet", wallet)
-                .param("account", account)
-                .param("representative", representative)
-                .build();
+            .param("wallet", wallet)
+            .param("account", account)
+            .param("representative", representative)
+            .build();
 
         return request(request, AccountRepresentativeSet.class);
     }
@@ -265,8 +265,8 @@ public class NanoClient {
      */
     public AccountWeight getAccountWeight(String account) {
         Request request = Request.action("account_weight")
-                .param("account", account)
-                .build();
+            .param("account", account)
+            .build();
 
         return request(request, AccountWeight.class);
     }
@@ -279,8 +279,8 @@ public class NanoClient {
      */
     public Balances getAccountBalances(List<String> accounts) {
         Request request = Request.action("accounts_balances")
-                .param("accounts", accounts)
-                .build();
+            .param("accounts", accounts)
+            .build();
 
         return request(request, Balances.class);
     }
@@ -312,24 +312,25 @@ public class NanoClient {
      */
     public AccountsCreate createAccounts(String wallet, Integer count, boolean work) {
         Request request = Request.action("accounts_create")
-                .param("wallet", wallet)
-                .param("count", count)
-                .param("work", work)
-                .build();
+            .param("wallet", wallet)
+            .param("count", count)
+            .param("work", work)
+            .build();
 
         return request(request, AccountsCreate.class);
     }
 
     /**
-     * Returns a list of pairs of account and block hash representing the head block for an accounts list.
+     * Returns a list of pairs of account and block hash representing the
+     * head block for an accounts list.
      *
-     * @param accounts the accounts to retrieve
-     * @return
+     * @param accounts the accounts to retrieve.
+     * @return the starting block for each account.
      */
     public AccountsFrontiers getAccountsFrontiers(List<String> accounts) {
         Request request = Request.action("accounts_frontiers")
-                .param("accounts", accounts)
-                .build();
+            .param("accounts", accounts)
+            .build();
 
         return request(request, AccountsFrontiers.class);
     }
@@ -344,9 +345,9 @@ public class NanoClient {
      */
     public AccountsPending getAccountsPending(List<String> accounts, Integer count) {
         Request request = Request.action("accounts_pending")
-                .param("accounts", accounts)
-                .param("count", count)
-                .build();
+            .param("accounts", accounts)
+            .param("count", count)
+            .build();
 
         return request(request, AccountsPending.class);
     }
@@ -363,8 +364,8 @@ public class NanoClient {
      */
     public String mraiFromRaw(String raw) {
         Request request = Request.action("mrai_from_raw")
-                .param("amount", raw)
-                .build();
+            .param("amount", raw)
+            .build();
 
         return request(request, ConversionResponse.class).getAmount();
     }
@@ -377,8 +378,8 @@ public class NanoClient {
      */
     public String mraiToRaw(String mrai) {
         Request request = Request.action("mrai_to_raw")
-                .param("amount", mrai)
-                .build();
+            .param("amount", mrai)
+            .build();
 
         return request(request, ConversionResponse.class).getAmount();
     }
@@ -391,8 +392,8 @@ public class NanoClient {
      */
     public String kraiFromRaw(String raw) {
         Request request = Request.action("krai_from_raw")
-                .param("amount", raw)
-                .build();
+            .param("amount", raw)
+            .build();
 
         return request(request, ConversionResponse.class).getAmount();
     }
@@ -405,8 +406,8 @@ public class NanoClient {
      */
     public String kraiToRaw(String krai) {
         Request request = Request.action("krai_to_raw")
-                .param("amount", krai)
-                .build();
+            .param("amount", krai)
+            .build();
 
         return request(request, ConversionResponse.class).getAmount();
     }
@@ -419,8 +420,8 @@ public class NanoClient {
      */
     public String raiFromRaw(String raw) {
         Request request = Request.action("rai_from_raw")
-                .param("amount", raw)
-                .build();
+            .param("amount", raw)
+            .build();
 
         return request(request, ConversionResponse.class).getAmount();
     }
@@ -433,8 +434,8 @@ public class NanoClient {
      */
     public String raiToRaw(String rai) {
         Request request = Request.action("rai_to_raw")
-                .param("amount", rai)
-                .build();
+            .param("amount", rai)
+            .build();
 
         return request(request, ConversionResponse.class).getAmount();
     }
@@ -455,7 +456,7 @@ public class NanoClient {
 
     /**
      * Method to safely shutdown node.
-     *
+     * <p>
      * Requires enable_control.
      */
     public void stopNode() {
@@ -480,10 +481,10 @@ public class NanoClient {
      */
     public Receive receive(String wallet, String account, String block) {
         Request request = Request.action("receive")
-                .param("wallet", wallet)
-                .param("account", account)
-                .param("block", block)
-                .build();
+            .param("wallet", wallet)
+            .param("account", account)
+            .param("block", block)
+            .build();
 
         return request(request, Receive.class);
     }
@@ -509,8 +510,8 @@ public class NanoClient {
      */
     public void setReceiveMinimum(String amount) {
         Request request = Request.action("receive_minimum_set")
-                .param("amount", amount)
-                .build();
+            .param("amount", amount)
+            .build();
 
         request(request, VoidResponse.class);
     }
@@ -536,8 +537,8 @@ public class NanoClient {
      */
     public WalletRepresentative getWalletRepresentative(String wallet) {
         Request request = Request.action("wallet_representative")
-                .param("wallet", wallet)
-                .build();
+            .param("wallet", wallet)
+            .build();
 
         return request(request, WalletRepresentative.class);
     }
@@ -552,8 +553,8 @@ public class NanoClient {
      */
     public void setWalletRepresentative(String wallet, String representative) {
         Request request = Request.action("wallet_representative_set")
-                .param("wallet", wallet)
-                .build();
+            .param("wallet", wallet)
+            .build();
 
         request(request, WalletRepresentativeSet.class);
         return;
@@ -576,11 +577,11 @@ public class NanoClient {
      */
     public Send send(String wallet, String source, String destination, String amount) {
         Request request = Request.action("send")
-                .param("wallet", wallet)
-                .param("source", source)
-                .param("destination", destination)
-                .param("amount", amount)
-                .build();
+            .param("wallet", wallet)
+            .param("source", source)
+            .param("destination", destination)
+            .param("amount", amount)
+            .build();
 
         return request(request, Send.class);
     }
@@ -607,11 +608,11 @@ public class NanoClient {
 
     /**
      * Changes the seed for a wallet.
-     *
+     * <p>
      * Requires enable_control.
      *
      * @param wallet the wallet to change the seed for.
-     * @param seed the new seed.
+     * @param seed   the new seed.
      */
     public void changeWalletSeed(String wallet, String seed) {
         Request request = Request.action("wallet_change_seed")
@@ -625,7 +626,7 @@ public class NanoClient {
     /**
      * Check whether the wallet contains account.
      *
-     * @param wallet the wallet to check.
+     * @param wallet  the wallet to check.
      * @param account the account to check for.
      * @return true or false.
      */

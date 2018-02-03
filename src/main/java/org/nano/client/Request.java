@@ -9,13 +9,13 @@ class Request {
     private final String action;
     private final Map<String, Object> map;
 
-    public Request(String action, Map<String, Object> map) {
+    Request(String action, Map<String, Object> map) {
         this.action = action;
         this.map = map;
         this.map.put(ACTION_KEY, action);
     }
 
-    public Map<String, Object> getMap() {
+    Map<String, Object> getMap() {
         return map;
     }
 
@@ -23,26 +23,26 @@ class Request {
         return action;
     }
 
-    public static Builder action(String action) {
+    static Builder action(String action) {
         return new Builder(action);
     }
 
-    public static class Builder {
+    static class Builder {
 
         private final String action;
-        private Map<String, Object> map;
+        private final Map<String, Object> map;
 
-        public Builder(String action) {
+        Builder(String action) {
             this.action = action;
             this.map = new HashMap<>();
         }
 
-        public Builder param(String key, Object value) {
+        Builder param(String key, Object value) {
             map.put(key, value);
             return this;
         }
 
-        public Request build() {
+        Request build() {
             return new Request(action, map);
         }
     }

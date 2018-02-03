@@ -16,11 +16,11 @@ class HttpClient {
         this.host = host;
     }
 
-    public String post(String body) throws IOException {
+    String post(String body) throws IOException {
         okhttp3.Request request = new okhttp3.Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/json"), body))
-                .url(host)
-                .build();
+            .post(RequestBody.create(MediaType.parse("application/json"), body))
+            .url(host)
+            .build();
 
         Response response = client.newCall(request).execute();
         return response.body().string();
