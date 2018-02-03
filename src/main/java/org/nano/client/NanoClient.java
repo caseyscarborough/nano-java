@@ -253,6 +253,28 @@ public class NanoClient {
         return response(request, AccountRepresentativeSet.class);
     }
 
+    /**
+     * Send funds from one account to another.
+     * <p>
+     * Requires enable_control.
+     *
+     * @param wallet      the wallet which contains the source account.
+     * @param source      the account to send from.
+     * @param destination the receiving account.
+     * @param amount      the amount to send. // TODO: document the unit here
+     * @return the block associated with the send transaction.
+     */
+    public Send send(String wallet, String source, String destination, String amount) {
+        Request request = Request.action("send")
+                .param("wallet", wallet)
+                .param("source", source)
+                .param("destination", destination)
+                .param("amount", amount)
+                .build();
+
+        return response(request, Send.class);
+    }
+
     private <T extends BaseResponse> T response(Request r, Class<T> clazz) {
         try {
             String json = gson.toJson(r.getMap());

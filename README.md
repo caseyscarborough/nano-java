@@ -106,8 +106,8 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [ ] Representatives
   - [ ] Wallet representative
   - [ ] Wallet representative set
-- [ ] Sending
-  - [ ] Send
+- [x] Sending
+  - [x] Send
 - [ ] Unchecked blocks
   - [ ] Clear unchecked blocks
   - [ ] Retrieve unchecked block
