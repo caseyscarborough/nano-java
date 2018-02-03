@@ -13,14 +13,14 @@ import java.util.Arrays;
 
 public class NanoClient {
 
+    private static final String DEFAULT_HOST = "http://localhost:7076";
+
     private final OkHttpClient client = new OkHttpClient();
     private final String host;
-    private final Gson gson = new GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create();
+    private final Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 
     public NanoClient() {
-        this("http://localhost:7076");
+        this(DEFAULT_HOST);
     }
 
     public NanoClient(String host) {
@@ -93,6 +93,8 @@ public class NanoClient {
     /**
      * Creates a new account and inserts the next deterministic key in wallet.
      *
+     * Requires enable_account.
+     *
      * @param wallet the specified wallet.
      * @return the address of the new account.
      */
@@ -105,6 +107,8 @@ public class NanoClient {
      * <p>
      * This overloaded version takes can disable the generating the work after
      * the account is created.
+     *
+     * Requires enable_account.
      *
      * @param wallet the specified wallet.
      * @param work   whether or not generate work.
@@ -164,7 +168,9 @@ public class NanoClient {
     }
 
     /**
-     * Moves accounts from source to wallet, enable_control required on node.
+     * Moves accounts from source to wallet.
+     *
+     * Requires enable_control.
      *
      * @param wallet   the wallet to move to.
      * @param source   the source.
@@ -198,6 +204,8 @@ public class NanoClient {
     /**
      * Remove account from wallet.
      *
+     * Requires enable_control.
+     *
      * @param wallet  the wallet to remove the account from.
      * @param account the account to remove.
      * @return the number of accounts removed (1 for successful, 0 for unsuccessful).
@@ -209,6 +217,40 @@ public class NanoClient {
             .build();
 
         return response(request.getMap(), AccountRemove.class);
+    }
+
+    /**
+     * Returns the representative for an account.
+     *
+     * @param account the account to get the representative for.
+     * @return the account's representative.
+     */
+    public AccountRepresentative getAccountRepresentative(String account) {
+        Request request = Request.action("account_representative")
+                .param("account", account)
+                .build();
+
+        return response(request.getMap(), AccountRepresentative.class);
+    }
+
+    /**
+     * Sets the representative for an account within a wallet.
+     *
+     * Requires enable_control.
+     *
+     * @param wallet the wallet associated with the account.
+     * @param account the account to set the representative in.
+     * @param representative the representative to set.
+     * @return the block associated with setting the account representative.
+     */
+    public AccountRepresentativeSet setAccountRepresentative(String wallet, String account, String representative) {
+        Request request = Request.action("account_representative_set")
+                .param("wallet", wallet)
+                .param("account", account)
+                .param("representative", representative)
+                .build();
+
+        return response(request.getMap(), AccountRepresentativeSet.class);
     }
 
     private <T extends BaseResponse> T response(Object o, Class<T> clazz) {

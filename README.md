@@ -28,8 +28,8 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [x] Account move
   - [x] Account public key
   - [x] Account remove
-  - [ ] Account representative set
-  - [ ] Account representative
+  - [x] Account representative
+  - [x] Account representative set
   - [ ] Account weight
   - [ ] Accounts balances
   - [ ] Accounts create
