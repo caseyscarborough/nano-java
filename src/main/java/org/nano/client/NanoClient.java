@@ -10,7 +10,6 @@ import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class NanoClient {
@@ -41,7 +40,9 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return request(request, AccountBalance.class);
+        AccountBalance balance = request(request, AccountBalance.class);
+        balance.setAccount(account);
+        return balance;
     }
 
     /**
@@ -181,11 +182,11 @@ public class NanoClient {
      * @param accounts the accounts to move.
      * @return the number of accounts moved.
      */
-    public AccountMove moveAccounts(String wallet, String source, String... accounts) {
+    public AccountMove moveAccounts(String wallet, String source, List<String> accounts) {
         Request request = Request.action("account_move")
                 .param("wallet", wallet)
                 .param("source", source)
-                .param("accounts", Arrays.asList(accounts))
+                .param("accounts", accounts)
                 .build();
 
         return request(request, AccountMove.class);
@@ -246,6 +247,7 @@ public class NanoClient {
      * @param account        the account to set the representative in.
      * @param representative the representative to set.
      * @return the block associated with setting the account representative.
+     * TODO: Add the optional work parameter
      */
     public AccountRepresentativeSet setAccountRepresentative(String wallet, String account, String representative) {
         Request request = Request.action("account_representative_set")
@@ -255,6 +257,108 @@ public class NanoClient {
                 .build();
 
         return request(request, AccountRepresentativeSet.class);
+    }
+
+    /**
+     * Returns the voting weight for an account.
+     *
+     * @param account the account to query voting weight for.
+     * @return the account's voting weight.
+     */
+    public AccountWeight getAccountWeight(String account) {
+        Request request = Request.action("account_weight")
+                .param("account", account)
+                .build();
+
+        return request(request, AccountWeight.class);
+    }
+
+    /**
+     * Returns how many RAW is owned and how many have not yet been received by a list of accounts.
+     *
+     * @param accounts the accounts to query.
+     * @return the balances for each account.
+     */
+    public List<AccountBalance> getAccountBalances(List<String> accounts) {
+        Request request = Request.action("accounts_balances")
+                .param("accounts", accounts)
+                .build();
+
+        AccountsBalances response = request(request, AccountsBalances.class);
+
+        List<AccountBalance> output = new ArrayList<>();
+        for (String account : response.getBalances().keySet()) {
+            AccountBalance balance = response.getBalances().get(account);
+            balance.setAccount(account);
+            output.add(balance);
+        }
+        return output;
+    }
+
+    /**
+     * Creates new accounts, insert next deterministic keys in wallet up to count.
+     * <p>
+     * Requires enable_control.
+     *
+     * @param wallet the wallet to create accounts in.
+     * @param count  the number of accounts to create.
+     * @return the created accounts.
+     */
+    public AccountsCreate createAccounts(String wallet, Integer count) {
+        return createAccounts(wallet, count, true);
+    }
+
+    /**
+     * Creates new accounts, insert next deterministic keys in wallet up to count.
+     * <p>
+     * This overloaded version allows disabling work generation after creating accounts.
+     * <p>
+     * Requires enable_control.
+     *
+     * @param wallet the wallet to create accounts in.
+     * @param count  the number of accounts to create.
+     * @param work   whether or not the generate work after creating accounts.
+     * @return the created accounts.
+     */
+    public AccountsCreate createAccounts(String wallet, Integer count, boolean work) {
+        Request request = Request.action("accounts_create")
+                .param("wallet", wallet)
+                .param("count", count)
+                .param("work", work)
+                .build();
+
+        return request(request, AccountsCreate.class);
+    }
+
+    /**
+     * Returns a list of pairs of account and block hash representing the head block for an accounts list.
+     *
+     * @param accounts the accounts to retrieve
+     * @return
+     */
+    public AccountsFrontiers getAccountsFrontiers(List<String> accounts) {
+        Request request = Request.action("accounts_frontiers")
+                .param("accounts", accounts)
+                .build();
+
+        return request(request, AccountsFrontiers.class);
+    }
+
+    /**
+     * Returns a list of block hashes which have not yet been received by a list of accounts.
+     *
+     * @param accounts the accounts to query.
+     * @param count    the number of blocks to query.
+     * @return the list of accounts and associated pending blocks.
+     * TODO: Add the optional parameters to this method (threshold and source)
+     */
+    public AccountsPending getAccountsPending(List<String> accounts, Integer count) {
+        Request request = Request.action("accounts_pending")
+                .param("accounts", accounts)
+                .param("count", count)
+                .build();
+
+        return request(request, AccountsPending.class);
     }
 
     // endregion

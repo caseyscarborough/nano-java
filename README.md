@@ -17,7 +17,7 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
 
 ## Implemented methods
 
-- [ ] Accounts
+- [x] Accounts
   - [x] Account balance
   - [x] Account block count
   - [x] Account create
@@ -30,12 +30,12 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [x] Account remove
   - [x] Account representative
   - [x] Account representative set
-  - [ ] Account weight
-  - [ ] Accounts balances
-  - [ ] Accounts create
-  - [ ] Accounts frontiers
-  - [ ] Accounts pending
-  - [ ] Validate account number checksum
+  - [x] Account weight
+  - [x] Accounts balances
+  - [x] Accounts create
+  - [x] Accounts frontiers
+  - [x] Accounts pending
+  - [x] Validate account number checksum
 - [ ] Blocks
   - [ ] Block account
   - [ ] Block count by type
