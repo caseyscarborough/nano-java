@@ -3,10 +3,6 @@ package org.nano.client;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +12,7 @@ public class NanoClient {
 
     private static final String DEFAULT_HOST = "http://localhost:7076";
 
-    private final OkHttpClient client = new OkHttpClient();
-    private final String host;
+    private final HttpClient client;
     private final Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 
     public NanoClient() {
@@ -25,7 +20,11 @@ public class NanoClient {
     }
 
     public NanoClient(String host) {
-        this.host = host;
+        this(new HttpClient(host));
+    }
+
+    NanoClient(HttpClient client) {
+        this.client = client;
     }
 
     // region Account Methods
@@ -580,13 +579,7 @@ public class NanoClient {
     private <T extends BaseResponse> T request(Request r, Class<T> clazz) {
         try {
             String json = gson.toJson(r.getMap());
-            okhttp3.Request request = new okhttp3.Request.Builder()
-                    .post(RequestBody.create(MediaType.parse("application/json"), json))
-                    .url(host)
-                    .build();
-
-            Response response = client.newCall(request).execute();
-            String body = response.body().string();
+            String body = client.post(json);
             T t = gson.fromJson(body, clazz);
             if (!t.isSuccess()) {
                 throw new NanoException(t.getError());
