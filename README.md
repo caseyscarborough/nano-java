@@ -102,10 +102,10 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [x] Receive
   - [x] Receive minimum
   - [x] Receive minimum set
-- [ ] Representatives
-  - [ ] Representatives
-  - [ ] Wallet representative
-  - [ ] Wallet representative set
+- [x] Representatives
+  - [x] Representatives
+  - [x] Wallet representative
+  - [x] Wallet representative set
 - [x] Sending
   - [x] Send
 - [ ] Unchecked blocks

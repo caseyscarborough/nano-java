@@ -9,7 +9,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class NanoClient {
 
@@ -392,6 +394,55 @@ public class NanoClient {
                 .build();
 
         response(request, SetMinimum.class);
+    }
+
+    // endregion
+
+    // region Representative Methods
+
+    /**
+     * Returns a list of pairs of representatives and their respective voting weight.
+     */
+    public List<Representative> getRepresentatives() {
+        Request request = Request.action("representatives").build();
+        Representatives r = response(request, Representatives.class);
+
+        List<Representative> output = new ArrayList<>();
+        for (String account : r.getRepresentatives().keySet()) {
+            output.add(new Representative(account, r.getRepresentatives().get(account)));
+        }
+        return output;
+    }
+
+    /**
+     * Returns the default representative for the wallet.
+     *
+     * @param wallet the associated wallet.
+     * @return the wallet's representative.
+     */
+    public WalletRepresentative getWalletRepresentative(String wallet) {
+        Request request = Request.action("wallet_representative")
+                .param("wallet", wallet)
+                .build();
+
+        return response(request, WalletRepresentative.class);
+    }
+
+    /**
+     * Sets the default representative for a wallet.
+     * <p>
+     * Requires enable_control.
+     *
+     * @param wallet         the associated wallet.
+     * @param representative the representative to set.
+     */
+    public void setWalletRepresentative(String wallet, String representative) {
+        Request request = Request.action("wallet_representative_set")
+                .param("wallet", wallet)
+                .build();
+
+        response(request, WalletRepresentativeSet.class);
+        return;
     }
 
     // endregion
