@@ -98,10 +98,10 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [ ] Work get
   - [ ] Work set
   - [ ] Work validate
-- [ ] Receiving
-  - [ ] Receive
-  - [ ] Receive minimum
-  - [ ] Receive minimum set
+- [x] Receiving
+  - [x] Receive
+  - [x] Receive minimum
+  - [x] Receive minimum set
 - [ ] Representatives
   - [ ] Representatives
   - [ ] Wallet representative

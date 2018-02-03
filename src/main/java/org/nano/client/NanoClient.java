@@ -27,6 +27,8 @@ public class NanoClient {
         this.host = host;
     }
 
+    // region Account Methods
+
     /**
      * Returns how many RAW is owned and how many have not yet been received for an account.
      *
@@ -253,6 +255,61 @@ public class NanoClient {
         return response(request, AccountRepresentativeSet.class);
     }
 
+    // endregion
+
+    // region Receive Methods
+
+    /**
+     * Receive a pending block for an account.
+     * <p>
+     * Requires enable_control.
+     *
+     * @param wallet  the wallet associated with the account.
+     * @param account the account to receive into.
+     * @param block   the pending block.
+     * @return the newly created block.
+     */
+    public Receive receive(String wallet, String account, String block) {
+        Request request = Request.action("receive")
+                .param("wallet", wallet)
+                .param("account", account)
+                .param("block", block)
+                .build();
+
+        return response(request, Receive.class);
+    }
+
+    /**
+     * Get the minimum receive amount for a node.
+     * <p>
+     * Requires enable_control.
+     *
+     * @return the minimum receive amount.
+     */
+    public ReceiveMinimum getReceiveMinimum() {
+        Request request = Request.action("receive_minimum").build();
+        return response(request, ReceiveMinimum.class);
+    }
+
+    /**
+     * Set the new receive minimum for a node until restart.
+     * <p>
+     * Requires enable_control.
+     *
+     * @param amount the new amount to set.
+     */
+    public void setReceiveMinimum(String amount) {
+        Request request = Request.action("receive_minimum_set")
+                .param("amount", amount)
+                .build();
+
+        response(request, SetMinimum.class);
+    }
+
+    // endregion
+
+    // region Send Methods
+
     /**
      * Send funds from one account to another.
      * <p>
@@ -274,6 +331,8 @@ public class NanoClient {
 
         return response(request, Send.class);
     }
+
+    // endregion
 
     private <T extends BaseResponse> T response(Request r, Class<T> clazz) {
         try {
