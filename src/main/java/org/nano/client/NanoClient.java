@@ -37,7 +37,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request.getMap(), AccountBalance.class);
+        return response(request, AccountBalance.class);
     }
 
     /**
@@ -50,7 +50,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request.getMap(), AccountBlockCount.class);
+        return response(request, AccountBlockCount.class);
     }
 
     /**
@@ -87,7 +87,7 @@ public class NanoClient {
                 .param("weight", weight)
                 .param("pending", pending)
                 .build();
-        return response(request.getMap(), AccountInformation.class);
+        return response(request, AccountInformation.class);
     }
 
     /**
@@ -120,7 +120,7 @@ public class NanoClient {
                 .param("work", work)
                 .build();
 
-        return response(request.getMap(), AccountCreate.class);
+        return response(request, AccountCreate.class);
     }
 
     /**
@@ -134,7 +134,7 @@ public class NanoClient {
                 .param("key", publicKey)
                 .build();
 
-        return response(request.getMap(), AccountGet.class);
+        return response(request, AccountGet.class);
     }
 
     /**
@@ -150,7 +150,7 @@ public class NanoClient {
                 .param("count", count)
                 .build();
 
-        return response(request.getMap(), AccountHistory.class);
+        return response(request, AccountHistory.class);
     }
 
     /**
@@ -164,7 +164,7 @@ public class NanoClient {
                 .param("wallet", wallet)
                 .build();
 
-        return response(request.getMap(), AccountList.class);
+        return response(request, AccountList.class);
     }
 
     /**
@@ -184,7 +184,7 @@ public class NanoClient {
                 .param("accounts", Arrays.asList(accounts))
                 .build();
 
-        return response(request.getMap(), AccountMove.class);
+        return response(request, AccountMove.class);
     }
 
     /**
@@ -198,7 +198,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request.getMap(), AccountPublicKey.class);
+        return response(request, AccountPublicKey.class);
     }
 
     /**
@@ -216,7 +216,7 @@ public class NanoClient {
                 .param("wallet", wallet)
                 .build();
 
-        return response(request.getMap(), AccountRemove.class);
+        return response(request, AccountRemove.class);
     }
 
     /**
@@ -230,7 +230,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request.getMap(), AccountRepresentative.class);
+        return response(request, AccountRepresentative.class);
     }
 
     /**
@@ -250,12 +250,12 @@ public class NanoClient {
                 .param("representative", representative)
                 .build();
 
-        return response(request.getMap(), AccountRepresentativeSet.class);
+        return response(request, AccountRepresentativeSet.class);
     }
 
-    private <T extends BaseResponse> T response(Object o, Class<T> clazz) {
+    private <T extends BaseResponse> T response(Request r, Class<T> clazz) {
         try {
-            String json = gson.toJson(o);
+            String json = gson.toJson(r.getMap());
             okhttp3.Request request = new okhttp3.Request.Builder()
                     .post(RequestBody.create(MediaType.parse("application/json"), json))
                     .url(host)
