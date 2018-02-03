@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NanoClient {
@@ -176,15 +175,15 @@ public class NanoClient {
      * <p>
      * Requires enable_control.
      *
-     * @param wallet   the wallet to move to.
-     * @param source   the source.
+     * @param from     the wallet to move from.
+     * @param to       the wallet to move to.
      * @param accounts the accounts to move.
      * @return the number of accounts moved.
      */
-    public AccountMove moveAccounts(String wallet, String source, List<String> accounts) {
+    public AccountMove moveAccounts(String from, String to, List<String> accounts) {
         Request request = Request.action("account_move")
-                .param("wallet", wallet)
-                .param("source", source)
+                .param("source", from)
+                .param("wallet", to)
                 .param("accounts", accounts)
                 .build();
 
