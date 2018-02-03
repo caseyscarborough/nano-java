@@ -452,6 +452,7 @@ public class NanoClient {
      * @param account the account to receive into.
      * @param block   the pending block.
      * @return the newly created block.
+     * TODO: Add optional work parameter
      */
     public Receive receive(String wallet, String account, String block) {
         Request request = Request.action("receive")
@@ -496,6 +497,7 @@ public class NanoClient {
 
     /**
      * Returns a list of pairs of representatives and their respective voting weight.
+     * TODO: Add optional count and sorting parameters
      */
     public Representatives getRepresentatives() {
         Request request = Request.action("representatives").build();

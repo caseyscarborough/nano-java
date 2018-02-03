@@ -183,7 +183,7 @@ public class NanoClientTest {
     @Test
     public void testGetAccountWeight() throws Exception {
         expectJson("account_weight");
-        
+
         AccountWeight weight = client.getAccountWeight(ACCOUNT);
         assertEquals("10000", weight.getWeight());
     }
@@ -204,7 +204,7 @@ public class NanoClientTest {
     @Test
     public void testCreateAccounts() throws Exception {
         expectJson("accounts_create");
-        
+
         AccountsCreate create = client.createAccounts(WALLET, 2);
         assertEquals(2, create.getAccounts().size());
         assertEquals("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", create.getAccounts().get(0));
@@ -287,6 +287,78 @@ public class NanoClientTest {
         expectedException.expect(NanoException.class);
         expectedException.expectMessage("Unable to communicate with node");
         client.createAccount(WALLET);
+    }
+
+    @Test
+    public void testReceive() throws Exception {
+        expectJson("receive");
+
+        Receive receive = client.receive(
+            "000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F",
+            "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000",
+            "53EAA25CE28FA0E6D55EA9704B32604A736966255948594D55CBB05267CECD48");
+
+        assertEquals("EE5286AB32F580AB65FD84A69E107C69FBEB571DEC4D99297E19E3FA5529547B", receive.getBlock());
+    }
+
+    @Test
+    public void testReceiveMinimum() throws Exception {
+        expectJson("receive_minimum");
+
+        ReceiveMinimum minimum = client.getReceiveMinimum();
+        assertEquals("1000000000000000000000000", minimum.getAmount());
+    }
+
+    @Test
+    public void testReceiveMinimumSet() throws Exception {
+        expectJson("receive_minimum_set");
+        client.setReceiveMinimum("10000000");
+    }
+
+    @Test
+    public void testReceiveMinimumSetError() throws Exception {
+        expectJson("receive_minimum_set_error");
+        expectedException.expectMessage("Invalid JSON");
+        client.setReceiveMinimum("10000000");
+    }
+
+    @Test
+    public void testGetRepresentatives() throws Exception {
+        expectJson("representatives");
+
+        Representatives representatives = client.getRepresentatives();
+        assertEquals(3, representatives.getRepresentatives().size());
+
+        Representative rep = representatives.getRepresentatives().get(0);
+        assertEquals("xrb_1111111111111111111111111111111111111111111111111117353trpda", rep.getAddress());
+        assertEquals("3822372327060170000000000000000000000", rep.getAmount());
+    }
+
+    @Test
+    public void testGetWalletRepresentative() throws Exception {
+        expectJson("wallet_representative");
+
+        WalletRepresentative rep = client.getWalletRepresentative("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F");
+        assertEquals("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", rep.getRepresentative());
+    }
+
+    @Test
+    public void testSetWalletRepresentative() throws Exception {
+        expectJson("wallet_representative_set");
+        client.setWalletRepresentative("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000");
+    }
+
+    @Test
+    public void testSend() throws Exception {
+        expectJson("send");
+
+        Send send = client.send(
+            "000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F",
+            "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000",
+            "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000",
+            "1000000"
+        );
+        assertEquals("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", send.getBlock());
     }
 
     private void expectJson(String name) throws IOException {
