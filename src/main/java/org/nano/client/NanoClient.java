@@ -257,6 +257,94 @@ public class NanoClient {
 
     // endregion
 
+    // region Conversion Methods
+
+    /**
+     * Divide a raw amount down by the Mrai ratio.
+     *
+     * @param raw the amount in raw.
+     * @return the amount in Mrai.
+     */
+    public String mraiFromRaw(String raw) {
+        Request request = Request.action("mrai_from_raw")
+                .param("amount", raw)
+                .build();
+
+        return response(request, ConversionResponse.class).getAmount();
+    }
+
+    /**
+     * Multiply an Mrai amount by the Mrai ratio.
+     *
+     * @param mrai the amount in Mrai.
+     * @return the amount in raw.
+     */
+    public String mraiToRaw(String mrai) {
+        Request request = Request.action("mrai_to_raw")
+                .param("amount", mrai)
+                .build();
+
+        return response(request, ConversionResponse.class).getAmount();
+    }
+
+    /**
+     * Divide a raw amount down by the krai ratio.
+     *
+     * @param raw the amount in raw.
+     * @return the amount in krai.
+     */
+    public String kraiFromRaw(String raw) {
+        Request request = Request.action("krai_from_raw")
+                .param("amount", raw)
+                .build();
+
+        return response(request, ConversionResponse.class).getAmount();
+    }
+
+    /**
+     * Multiply an krai amount by the krai ratio.
+     *
+     * @param krai the amount in krai.
+     * @return the amount in raw.
+     */
+    public String kraiToRaw(String krai) {
+        Request request = Request.action("krai_to_raw")
+                .param("amount", krai)
+                .build();
+
+        return response(request, ConversionResponse.class).getAmount();
+    }
+
+    /**
+     * Divide a raw amount down by the rai ratio.
+     *
+     * @param raw the amount in raw.
+     * @return the amount in rai.
+     */
+    public String raiFromRaw(String raw) {
+        Request request = Request.action("rai_from_raw")
+                .param("amount", raw)
+                .build();
+
+        return response(request, ConversionResponse.class).getAmount();
+    }
+
+    /**
+     * Multiply an rai amount by the rai ratio.
+     *
+     * @param rai the amount in rai.
+     * @return the amount in raw.
+     */
+    public String raiToRaw(String rai) {
+        Request request = Request.action("rai_to_raw")
+                .param("amount", rai)
+                .build();
+
+        return response(request, ConversionResponse.class).getAmount();
+    }
+
+    // endregion
+
     // region Receive Methods
 
     /**

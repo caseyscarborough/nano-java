@@ -1,6 +1,6 @@
 package org.nano.client;
 
-public class SetMinimum extends BaseResponse {
+class SetMinimum extends BaseResponse {
 
     private String success;
 

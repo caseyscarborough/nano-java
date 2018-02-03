@@ -49,13 +49,13 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
 - [ ] Bootstrap
   - [ ] Bootstrap
   - [ ] Multi-connection bootstrap
-- [ ] Conversion
-  - [ ] Krai from raw
-  - [ ] Krai to raw
-  - [ ] Mrai from raw
-  - [ ] Mrai to raw
-  - [ ] Rai from raw
-  - [ ] Rai to raw
+- [x] Conversion
+  - [x] Krai from raw
+  - [x] Krai to raw
+  - [x] Mrai from raw
+  - [x] Mrai to raw
+  - [x] Rai from raw
+  - [x] Rai to raw
 - [ ] Delegators
   - [ ] Delegators
   - [ ] Delegators count
