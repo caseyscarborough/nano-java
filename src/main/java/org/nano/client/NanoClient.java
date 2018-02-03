@@ -278,20 +278,12 @@ public class NanoClient {
      * @param accounts the accounts to query.
      * @return the balances for each account.
      */
-    public List<AccountBalance> getAccountBalances(List<String> accounts) {
+    public AccountBalances getAccountBalances(List<String> accounts) {
         Request request = Request.action("accounts_balances")
                 .param("accounts", accounts)
                 .build();
 
-        AccountsBalances response = request(request, AccountsBalances.class);
-
-        List<AccountBalance> output = new ArrayList<>();
-        for (String account : response.getBalances().keySet()) {
-            AccountBalance balance = response.getBalances().get(account);
-            balance.setAccount(account);
-            output.add(balance);
-        }
-        return output;
+        return request(request, AccountBalances.class);
     }
 
     /**
@@ -506,15 +498,9 @@ public class NanoClient {
     /**
      * Returns a list of pairs of representatives and their respective voting weight.
      */
-    public List<Representative> getRepresentatives() {
+    public Representatives getRepresentatives() {
         Request request = Request.action("representatives").build();
-        Representatives r = request(request, Representatives.class);
-
-        List<Representative> output = new ArrayList<>();
-        for (String account : r.getRepresentatives().keySet()) {
-            output.add(new Representative(account, r.getRepresentatives().get(account)));
-        }
-        return output;
+        return request(request, Representatives.class);
     }
 
     /**
@@ -580,6 +566,7 @@ public class NanoClient {
         try {
             String json = gson.toJson(r.getMap());
             String body = client.post(json);
+            System.out.println("Response: " + body);
             T t = gson.fromJson(body, clazz);
             if (!t.isSuccess()) {
                 throw new NanoException(t.getError());
