@@ -41,7 +41,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request, AccountBalance.class);
+        return request(request, AccountBalance.class);
     }
 
     /**
@@ -54,7 +54,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request, AccountBlockCount.class);
+        return request(request, AccountBlockCount.class);
     }
 
     /**
@@ -91,7 +91,7 @@ public class NanoClient {
                 .param("weight", weight)
                 .param("pending", pending)
                 .build();
-        return response(request, AccountInformation.class);
+        return request(request, AccountInformation.class);
     }
 
     /**
@@ -124,7 +124,7 @@ public class NanoClient {
                 .param("work", work)
                 .build();
 
-        return response(request, AccountCreate.class);
+        return request(request, AccountCreate.class);
     }
 
     /**
@@ -138,7 +138,7 @@ public class NanoClient {
                 .param("key", publicKey)
                 .build();
 
-        return response(request, AccountGet.class);
+        return request(request, AccountGet.class);
     }
 
     /**
@@ -154,7 +154,7 @@ public class NanoClient {
                 .param("count", count)
                 .build();
 
-        return response(request, AccountHistory.class);
+        return request(request, AccountHistory.class);
     }
 
     /**
@@ -168,7 +168,7 @@ public class NanoClient {
                 .param("wallet", wallet)
                 .build();
 
-        return response(request, AccountList.class);
+        return request(request, AccountList.class);
     }
 
     /**
@@ -188,7 +188,7 @@ public class NanoClient {
                 .param("accounts", Arrays.asList(accounts))
                 .build();
 
-        return response(request, AccountMove.class);
+        return request(request, AccountMove.class);
     }
 
     /**
@@ -202,7 +202,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request, AccountPublicKey.class);
+        return request(request, AccountPublicKey.class);
     }
 
     /**
@@ -220,7 +220,7 @@ public class NanoClient {
                 .param("wallet", wallet)
                 .build();
 
-        return response(request, AccountRemove.class);
+        return request(request, AccountRemove.class);
     }
 
     /**
@@ -234,7 +234,7 @@ public class NanoClient {
                 .param("account", account)
                 .build();
 
-        return response(request, AccountRepresentative.class);
+        return request(request, AccountRepresentative.class);
     }
 
     /**
@@ -254,7 +254,7 @@ public class NanoClient {
                 .param("representative", representative)
                 .build();
 
-        return response(request, AccountRepresentativeSet.class);
+        return request(request, AccountRepresentativeSet.class);
     }
 
     // endregion
@@ -272,7 +272,7 @@ public class NanoClient {
                 .param("amount", raw)
                 .build();
 
-        return response(request, ConversionResponse.class).getAmount();
+        return request(request, ConversionResponse.class).getAmount();
     }
 
     /**
@@ -286,7 +286,7 @@ public class NanoClient {
                 .param("amount", mrai)
                 .build();
 
-        return response(request, ConversionResponse.class).getAmount();
+        return request(request, ConversionResponse.class).getAmount();
     }
 
     /**
@@ -300,7 +300,7 @@ public class NanoClient {
                 .param("amount", raw)
                 .build();
 
-        return response(request, ConversionResponse.class).getAmount();
+        return request(request, ConversionResponse.class).getAmount();
     }
 
     /**
@@ -314,7 +314,7 @@ public class NanoClient {
                 .param("amount", krai)
                 .build();
 
-        return response(request, ConversionResponse.class).getAmount();
+        return request(request, ConversionResponse.class).getAmount();
     }
 
     /**
@@ -328,7 +328,7 @@ public class NanoClient {
                 .param("amount", raw)
                 .build();
 
-        return response(request, ConversionResponse.class).getAmount();
+        return request(request, ConversionResponse.class).getAmount();
     }
 
     /**
@@ -342,7 +342,7 @@ public class NanoClient {
                 .param("amount", rai)
                 .build();
 
-        return response(request, ConversionResponse.class).getAmount();
+        return request(request, ConversionResponse.class).getAmount();
     }
 
     // endregion
@@ -366,7 +366,7 @@ public class NanoClient {
                 .param("block", block)
                 .build();
 
-        return response(request, Receive.class);
+        return request(request, Receive.class);
     }
 
     /**
@@ -378,7 +378,7 @@ public class NanoClient {
      */
     public ReceiveMinimum getReceiveMinimum() {
         Request request = Request.action("receive_minimum").build();
-        return response(request, ReceiveMinimum.class);
+        return request(request, ReceiveMinimum.class);
     }
 
     /**
@@ -393,7 +393,7 @@ public class NanoClient {
                 .param("amount", amount)
                 .build();
 
-        response(request, SetMinimum.class);
+        request(request, SetMinimum.class);
     }
 
     // endregion
@@ -405,7 +405,7 @@ public class NanoClient {
      */
     public List<Representative> getRepresentatives() {
         Request request = Request.action("representatives").build();
-        Representatives r = response(request, Representatives.class);
+        Representatives r = request(request, Representatives.class);
 
         List<Representative> output = new ArrayList<>();
         for (String account : r.getRepresentatives().keySet()) {
@@ -425,7 +425,7 @@ public class NanoClient {
                 .param("wallet", wallet)
                 .build();
 
-        return response(request, WalletRepresentative.class);
+        return request(request, WalletRepresentative.class);
     }
 
     /**
@@ -441,7 +441,7 @@ public class NanoClient {
                 .param("wallet", wallet)
                 .build();
 
-        response(request, WalletRepresentativeSet.class);
+        request(request, WalletRepresentativeSet.class);
         return;
     }
 
@@ -468,12 +468,12 @@ public class NanoClient {
                 .param("amount", amount)
                 .build();
 
-        return response(request, Send.class);
+        return request(request, Send.class);
     }
 
     // endregion
 
-    private <T extends BaseResponse> T response(Request r, Class<T> clazz) {
+    private <T extends BaseResponse> T request(Request r, Class<T> clazz) {
         try {
             String json = gson.toJson(r.getMap());
             okhttp3.Request request = new okhttp3.Request.Builder()
