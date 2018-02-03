@@ -586,7 +586,7 @@ public class NanoClient {
             }
             return t;
         } catch (IOException e) {
-            throw new NanoException("Unable to get account balance", e);
+            throw new NanoException("Unable to communicate with node", e);
         }
     }
 }
