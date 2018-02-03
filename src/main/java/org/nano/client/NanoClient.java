@@ -34,8 +34,8 @@ public class NanoClient {
      */
     public AccountBalance getAccountBalance(String account) {
         Request request = Request.action("account_balance")
-            .param("account", account)
-            .build();
+                .param("account", account)
+                .build();
 
         return response(request.getMap(), AccountBalance.class);
     }
@@ -47,8 +47,8 @@ public class NanoClient {
      */
     public AccountBlockCount getAccountBlockCount(String account) {
         Request request = Request.action("account_block_count")
-            .param("account", account)
-            .build();
+                .param("account", account)
+                .build();
 
         return response(request.getMap(), AccountBlockCount.class);
     }
@@ -82,17 +82,17 @@ public class NanoClient {
                                                     boolean weight,
                                                     boolean pending) {
         Request request = Request.action("account_info")
-            .param("account", account)
-            .param("representative", representative)
-            .param("weight", weight)
-            .param("pending", pending)
-            .build();
+                .param("account", account)
+                .param("representative", representative)
+                .param("weight", weight)
+                .param("pending", pending)
+                .build();
         return response(request.getMap(), AccountInformation.class);
     }
 
     /**
      * Creates a new account and inserts the next deterministic key in wallet.
-     *
+     * <p>
      * Requires enable_account.
      *
      * @param wallet the specified wallet.
@@ -107,7 +107,7 @@ public class NanoClient {
      * <p>
      * This overloaded version takes can disable the generating the work after
      * the account is created.
-     *
+     * <p>
      * Requires enable_account.
      *
      * @param wallet the specified wallet.
@@ -116,9 +116,9 @@ public class NanoClient {
      */
     public AccountCreate createAccount(String wallet, boolean work) {
         Request request = Request.action("account_create")
-            .param("wallet", wallet)
-            .param("work", work)
-            .build();
+                .param("wallet", wallet)
+                .param("work", work)
+                .build();
 
         return response(request.getMap(), AccountCreate.class);
     }
@@ -131,8 +131,8 @@ public class NanoClient {
      */
     public AccountGet getAccount(String publicKey) {
         Request request = Request.action("account_get")
-            .param("key", publicKey)
-            .build();
+                .param("key", publicKey)
+                .build();
 
         return response(request.getMap(), AccountGet.class);
     }
@@ -146,9 +146,9 @@ public class NanoClient {
      */
     public AccountHistory getAccountHistory(String account, Integer count) {
         Request request = Request.action("account_history")
-            .param("account", account)
-            .param("count", count)
-            .build();
+                .param("account", account)
+                .param("count", count)
+                .build();
 
         return response(request.getMap(), AccountHistory.class);
     }
@@ -161,15 +161,15 @@ public class NanoClient {
      */
     public AccountList getAccountList(String wallet) {
         Request request = Request.action("account_list")
-            .param("wallet", wallet)
-            .build();
+                .param("wallet", wallet)
+                .build();
 
         return response(request.getMap(), AccountList.class);
     }
 
     /**
      * Moves accounts from source to wallet.
-     *
+     * <p>
      * Requires enable_control.
      *
      * @param wallet   the wallet to move to.
@@ -179,10 +179,10 @@ public class NanoClient {
      */
     public AccountMove moveAccounts(String wallet, String source, String... accounts) {
         Request request = Request.action("account_move")
-            .param("wallet", wallet)
-            .param("source", source)
-            .param("accounts", Arrays.asList(accounts))
-            .build();
+                .param("wallet", wallet)
+                .param("source", source)
+                .param("accounts", Arrays.asList(accounts))
+                .build();
 
         return response(request.getMap(), AccountMove.class);
     }
@@ -195,15 +195,15 @@ public class NanoClient {
      */
     public AccountPublicKey getAccountPublicKey(String account) {
         Request request = Request.action("account_key")
-            .param("account", account)
-            .build();
+                .param("account", account)
+                .build();
 
         return response(request.getMap(), AccountPublicKey.class);
     }
 
     /**
      * Remove account from wallet.
-     *
+     * <p>
      * Requires enable_control.
      *
      * @param wallet  the wallet to remove the account from.
@@ -212,9 +212,9 @@ public class NanoClient {
      */
     public AccountRemove removeAccount(String wallet, String account) {
         Request request = Request.action("account_remove")
-            .param("account", account)
-            .param("wallet", wallet)
-            .build();
+                .param("account", account)
+                .param("wallet", wallet)
+                .build();
 
         return response(request.getMap(), AccountRemove.class);
     }
@@ -235,11 +235,11 @@ public class NanoClient {
 
     /**
      * Sets the representative for an account within a wallet.
-     *
+     * <p>
      * Requires enable_control.
      *
-     * @param wallet the wallet associated with the account.
-     * @param account the account to set the representative in.
+     * @param wallet         the wallet associated with the account.
+     * @param account        the account to set the representative in.
      * @param representative the representative to set.
      * @return the block associated with setting the account representative.
      */
@@ -257,9 +257,9 @@ public class NanoClient {
         try {
             String json = gson.toJson(o);
             okhttp3.Request request = new okhttp3.Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/json"), json))
-                .url(host)
-                .build();
+                    .post(RequestBody.create(MediaType.parse("application/json"), json))
+                    .url(host)
+                    .build();
 
             Response response = client.newCall(request).execute();
             String body = response.body().string();
