@@ -74,9 +74,9 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [ ] Available supply
   - [ ] Keepalive
   - [ ] Republish
-- [ ] Node
-  - [ ] Retrieve node versions
-  - [ ] Stop node
+- [x] Node
+  - [x] Retrieve node versions
+  - [x] Stop node
 - [ ] Payments
   - [ ] Payment begin
   - [ ] Payment end
@@ -114,11 +114,11 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [ ] Unchecked blocks with database keys
   - [ ] Unchecked blocks
 - [ ] Wallet
-  - [ ] Wallet accounts balances
+  - [x] Wallet accounts balances
   - [ ] Wallet add key
   - [ ] Wallet change password
-  - [ ] Wallet change seed
-  - [ ] Wallet contains
+  - [x] Wallet change seed
+  - [x] Wallet contains
   - [ ] Wallet create
   - [ ] Wallet destroy
   - [ ] Wallet export
@@ -126,8 +126,8 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [ ] Wallet locked check
   - [ ] Wallet password enter (unlock wallet)
   - [ ] Wallet pending
-  - [ ] Wallet representative set
-  - [ ] Wallet representative
+  - [x] Wallet representative
+  - [x] Wallet representative set
   - [ ] Wallet republish
   - [ ] Wallet total balance
   - [ ] Wallet valid password

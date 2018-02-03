@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-class AccountBalances extends BaseResponse {
+class Balances extends BaseResponse {
 
-    private Map<String, AccountBalance> balances;
+    private Map<String, Balance> balances;
 
-    public List<AccountBalance> getBalances() {
-        List<AccountBalance> output = new ArrayList<>();
+    public List<Balance> getBalances() {
+        List<Balance> output = new ArrayList<>();
         for (String account : balances.keySet()) {
-            AccountBalance balance = balances.get(account);
+            Balance balance = balances.get(account);
             balance.setAccount(account);
             output.add(balance);
         }

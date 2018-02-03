@@ -1,6 +1,6 @@
 package org.nano.client;
 
-public class AccountBalance extends BaseResponse {
+public class Balance extends BaseResponse {
 
     private String account;
     private String balance;

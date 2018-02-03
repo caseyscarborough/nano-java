@@ -33,12 +33,12 @@ public class NanoClient {
      *
      * @param account the address of the account
      */
-    public AccountBalance getAccountBalance(String account) {
+    public Balance getAccountBalance(String account) {
         Request request = Request.action("account_balance")
                 .param("account", account)
                 .build();
 
-        AccountBalance balance = request(request, AccountBalance.class);
+        Balance balance = request(request, Balance.class);
         balance.setAccount(account);
         return balance;
     }
@@ -277,12 +277,12 @@ public class NanoClient {
      * @param accounts the accounts to query.
      * @return the balances for each account.
      */
-    public AccountBalances getAccountBalances(List<String> accounts) {
+    public Balances getAccountBalances(List<String> accounts) {
         Request request = Request.action("accounts_balances")
                 .param("accounts", accounts)
                 .build();
 
-        return request(request, AccountBalances.class);
+        return request(request, Balances.class);
     }
 
     /**
@@ -441,6 +441,30 @@ public class NanoClient {
 
     // endregion
 
+    // region Node Methods
+
+    /**
+     * Returns version information for RPC, Store & Node (Major & Minor version).
+     *
+     * @return version information about the node.
+     */
+    public NodeVersion getNodeVersion() {
+        Request request = Request.action("version").build();
+        return request(request, NodeVersion.class);
+    }
+
+    /**
+     * Method to safely shutdown node.
+     *
+     * Requires enable_control.
+     */
+    public void stopNode() {
+        Request request = Request.action("stop").build();
+        request(request, VoidResponse.class);
+    }
+
+    // endregion
+
     // region Receive Methods
 
     /**
@@ -488,7 +512,7 @@ public class NanoClient {
                 .param("amount", amount)
                 .build();
 
-        request(request, SetMinimum.class);
+        request(request, VoidResponse.class);
     }
 
     // endregion
@@ -559,6 +583,59 @@ public class NanoClient {
                 .build();
 
         return request(request, Send.class);
+    }
+
+    // endregion
+
+    // region Wallet Methods
+
+    /**
+     * Returns how many nano is owned and how many have not yet been
+     * received by all accounts in wallet.
+     *
+     * @param wallet the wallet to check.
+     * @return the balance and pending balance for each account in the wallet.
+     * TODO: Add optional threshold
+     */
+    public Balances getWalletBalances(String wallet) {
+        Request request = Request.action("wallet_balances")
+            .param("wallet", wallet)
+            .build();
+
+        return request(request, Balances.class);
+    }
+
+    /**
+     * Changes the seed for a wallet.
+     *
+     * Requires enable_control.
+     *
+     * @param wallet the wallet to change the seed for.
+     * @param seed the new seed.
+     */
+    public void changeWalletSeed(String wallet, String seed) {
+        Request request = Request.action("wallet_change_seed")
+            .param("wallet", wallet)
+            .param("seed", seed)
+            .build();
+
+        request(request, VoidResponse.class);
+    }
+
+    /**
+     * Check whether the wallet contains account.
+     *
+     * @param wallet the wallet to check.
+     * @param account the account to check for.
+     * @return true or false.
+     */
+    public boolean walletContainsAccount(String wallet, String account) {
+        Request request = Request.action("wallet_contains")
+            .param("wallet", wallet)
+            .param("account", account)
+            .build();
+
+        return request(request, ExistenceResponse.class).exists();
     }
 
     // endregion

@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -40,10 +42,10 @@ public class NanoClientTest {
     public void testGetAccountBalance() throws Exception {
         expectJson("account_balance");
 
-        AccountBalance accountBalance = client.getAccountBalance(ACCOUNT);
-        assertEquals("325586539664609129644855132177", accountBalance.getBalance());
-        assertEquals(ACCOUNT, accountBalance.getAccount());
-        assertEquals("2309370940000000000000000000000000", accountBalance.getPending());
+        Balance balance = client.getAccountBalance(ACCOUNT);
+        assertEquals("325586539664609129644855132177", balance.getBalance());
+        assertEquals(ACCOUNT, balance.getAccount());
+        assertEquals("2309370940000000000000000000000000", balance.getPending());
     }
 
     @Test
@@ -192,10 +194,10 @@ public class NanoClientTest {
     public void testGetAccountBalances() throws Exception {
         expectJson("account_balances");
 
-        AccountBalances balances = client.getAccountBalances(Arrays.asList("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", "xrb_3i1aq1cchnmbn9x5rsbap8b15akfh7wj7pwskuzi7ahz8oq6cobd99d4r3b7"));
+        Balances balances = client.getAccountBalances(Arrays.asList("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", "xrb_3i1aq1cchnmbn9x5rsbap8b15akfh7wj7pwskuzi7ahz8oq6cobd99d4r3b7"));
         assertEquals(2, balances.getBalances().size());
 
-        AccountBalance one = balances.getBalances().get(0);
+        Balance one = balances.getBalances().get(0);
         assertEquals("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", one.getAccount());
         assertEquals("10000", one.getBalance());
         assertEquals("10001", one.getPending());
@@ -359,6 +361,56 @@ public class NanoClientTest {
             "1000000"
         );
         assertEquals("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", send.getBlock());
+    }
+
+    @Test
+    public void testGetNodeVersion() throws Exception {
+        expectJson("version");
+
+        NodeVersion version = client.getNodeVersion();
+        assertEquals("RaiBlocks 7.5.0", version.getNodeVendor());
+        assertEquals("1", version.getRpcVersion());
+        assertEquals("2", version.getStoreVersion());
+    }
+
+    @Test
+    public void testStopNode() throws Exception {
+        expectJson("stop");
+        client.stopNode();
+    }
+
+    @Test
+    public void testChangeWalletSeed() throws Exception {
+        expectJson("wallet_change_seed");
+        client.changeWalletSeed(
+            "000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F",
+            "74F2B37AAD20F4A260F0A5B3CB3D7FB51673212263E58A380BC10474BB039CEE"
+        );
+    }
+
+    @Test
+    public void testWalletContainsAccount() throws Exception {
+        expectJson("existence_true");
+        boolean contains = client.walletContainsAccount("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000");
+        assertTrue(contains);
+    }
+
+    @Test
+    public void testWalletContainsAccountFalse() throws Exception {
+        expectJson("existence_false");
+        boolean contains = client.walletContainsAccount("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", "xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000");
+        assertFalse(contains);
+    }
+
+    @Test
+    public void testGetWalletBalances() throws Exception {
+        expectJson("wallet_balances");
+
+        Balances balances = client.getWalletBalances("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F");
+        assertEquals(1, balances.getBalances().size());
+        assertEquals("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", balances.getBalances().get(0).getAccount());
+        assertEquals("10000", balances.getBalances().get(0).getBalance());
+        assertEquals("10001", balances.getBalances().get(0).getPending());
     }
 
     private void expectJson(String name) throws IOException {
