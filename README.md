@@ -37,10 +37,10 @@ AccountBalance balance = client.getAccountBalance("xrb_3t6k35gi95xu6tergt6p69ck7
   - [x] Accounts pending
   - [x] Validate account number checksum
 - [ ] Blocks
-  - [ ] Block account
-  - [ ] Block count by type
-  - [ ] Block count
-  - [ ] Chain
+  - [x] Block account
+  - [x] Block count by type
+  - [x] Block count
+  - [x] Chain
   - [ ] Offline signing (create block)
   - [ ] Process block
   - [ ] Retrieve block

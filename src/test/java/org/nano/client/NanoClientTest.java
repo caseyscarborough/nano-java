@@ -235,6 +235,42 @@ public class NanoClientTest {
     }
 
     @Test
+    public void testGetBlockAccount() throws Exception {
+        expectJson("block_account");
+
+        BlockAccount account = client.getBlockAccount("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F");
+        assertEquals("xrb_3e3j5tkog48pnny9dmfzj1r16pg8t1e76dz5tmac6iq689wyjfpi00000000", account.getAccount());
+    }
+
+    @Test
+    public void testGetBlockCount() throws Exception {
+        expectJson("block_count");
+
+        BlockCount count = client.getBlockCount();
+        assertEquals("1000", count.getCount());
+        assertEquals("10", count.getUnchecked());
+    }
+
+    @Test
+    public void testGetBlockCountType() throws Exception {
+        expectJson("block_count_type");
+
+        BlockCountType type = client.getBlockCountType();
+        assertEquals("1000", type.getSend());
+        assertEquals("900", type.getReceive());
+        assertEquals("100", type.getOpen());
+        assertEquals("50", type.getChange());
+    }
+
+    @Test
+    public void testGetChain() throws Exception {
+        expectJson("chain");
+
+        Chain chain = client.getChain("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", 1);
+        assertEquals("000D1BAEC8EC208142C99059B393051BAC8380F9B5A2E6B2489A277D81789F3F", chain.getBlocks().get(0));
+    }
+
+    @Test
     public void testMraiFromRaw() throws Exception {
         expectJson("mrai_from_raw");
 

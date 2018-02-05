@@ -354,6 +354,55 @@ public class NanoClient {
 
     // endregion
 
+    // region Block Methods
+
+    /**
+     * Returns the account for an associated block.
+     *
+     * @param hash the hash of the block.
+     * @return the account number.
+     */
+    public BlockAccount getBlockAccount(String hash) {
+        Request request = Request.action("block_account")
+            .param("hash", hash)
+            .build();
+
+        return request(request, BlockAccount.class);
+    }
+
+    /**
+     * Reports the number of blocks in the ledger and unchecked synchronizing blocks.
+     */
+    public BlockCount getBlockCount() {
+        Request request = Request.action("block_count").build();
+        return request(request, BlockCount.class);
+    }
+
+    /**
+     * Reports the number of blocks in the ledger by type (send, receive, open, change).
+     */
+    public BlockCountType getBlockCountType() {
+        Request request = Request.action("block_count_type").build();
+        return request(request, BlockCountType.class);
+    }
+
+    /**
+     * Returns a list of block hashes in the account chain starting at block up to count.
+     *
+     * @param block the block to start at.
+     * @param count the number of blocks to return.
+     */
+    public Chain getChain(String block, Integer count) {
+        Request request = Request.action("chain")
+            .param("block", block)
+            .param("count", count)
+            .build();
+
+        return request(request, Chain.class);
+    }
+
+    // endregion
+
     // region Conversion Methods
 
     /**
